@@ -54,40 +54,44 @@
   <ul id="lista-ingredientes"></ul>
   <h3>Modo de Preparo</h3>
   <div class="modo-preparo" id="modo-preparo"></div>
+<script>
+  // URL da sua API hospedada na Vercel
+  const API_BASE = "https://beck-end-do-site-de-receitas.vercel.app";
 
-  <script>
-    const API_BASE = "http://localhost:8000";
+  function getIdFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id");
+  }
 
-    function getIdFromURL() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get("id");
-    }
+  async function buscarReceitaPorId(id) {
+    const res = await fetch(`${API_BASE}/especifico/${id}`);
+    if (!res.ok) throw new Error("Erro ao buscar receita");
+    return await res.json();
+  }
 
-    async function buscarReceitaPorId(id) {
-      const res = await fetch(`${API_BASE}/especifico/${id}`);
-      if (!res.ok) throw new Error("Erro ao buscar receita");
-      return await res.json();
-    }
+  async function carregarDetalhes() {
+    const id = getIdFromURL();
+    const receita = await buscarReceitaPorId(id);
 
-    async function carregarDetalhes() {
-      const id = getIdFromURL();
-      const receita = await buscarReceitaPorId(id);
+    document.getElementById("titulo-receita").textContent = receita.nome_da_receita;
 
-      document.getElementById("titulo-receita").textContent = receita.nome_da_receita;
+    const ingredientes = receita.ingredientes
+      .split(",")
+      .map(i => i.trim())
+      .filter(i => i !== "");
+    const lista = document.getElementById("lista-ingredientes");
+    ingredientes.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      lista.appendChild(li);
+    });
 
-      const ingredientes = receita.ingredientes.split(",").map(i => i.trim()).filter(i => i !== "");
-      const lista = document.getElementById("lista-ingredientes");
-      ingredientes.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = item;
-        lista.appendChild(li);
-      });
+    document.getElementById("modo-preparo").textContent = receita.modo_de_preparo;
+  }
 
-      document.getElementById("modo-preparo").textContent = receita.modo_de_preparo;
-    }
+  carregarDetalhes();
+</script>
 
-    carregarDetalhes();
-  </script>
 
 </body>
 </html>
