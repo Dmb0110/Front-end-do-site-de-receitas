@@ -52,7 +52,7 @@
       border-radius: 6px;
       box-shadow: 0 1px 4px rgba(0,0,0,0.1);
       font-size: 16px;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     a {
@@ -133,7 +133,15 @@
         lista.appendChild(li);
       });
 
-      document.getElementById("modo-preparo").textContent = receita.modo_de_preparo;
+      // ✅ Aqui está a mudança: quebra de linha após cada ponto final
+      const modoFormatado = receita.modo_de_preparo
+        .split(".")
+        .map(frase => frase.trim())
+        .filter(frase => frase !== "")
+        .map(frase => frase + ".")
+        .join("<br>");
+
+      document.getElementById("modo-preparo").innerHTML = modoFormatado;
     }
 
     carregarDetalhes();
@@ -141,4 +149,3 @@
 
 </body>
 </html>
-
