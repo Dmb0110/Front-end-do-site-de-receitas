@@ -2,13 +2,21 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Receitas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
       margin: 0;
       padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      overflow-x: hidden;
     }
 
     .top-bar {
@@ -17,6 +25,8 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
     }
 
     .back-button {
@@ -30,7 +40,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 100px;
+      margin: 80px auto;
+      padding: 0 20px;
+      max-width: 400px;
     }
 
     form {
@@ -38,13 +50,23 @@
       padding: 30px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
     }
 
     input {
       display: block;
       margin-bottom: 15px;
       padding: 10px;
-      width: 250px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
     }
 
     button {
@@ -52,13 +74,47 @@
       background: #28a745;
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
+      font-size: 16px;
       cursor: pointer;
+      width: 100%;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #218838;
     }
 
     #response {
       margin-top: 20px;
       font-weight: bold;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 20px;
+      }
+
+      input, button {
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      .container {
+        margin-top: 40px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      body {
+        font-size: 18px;
+      }
+
+      .container {
+        max-width: 500px;
+      }
     }
   </style>
 </head>
@@ -105,7 +161,6 @@
           responseDiv.style.color = 'green';
           localStorage.setItem('access_token', data.access_token);
 
-          // Redireciona para a página de envio de receita
           setTimeout(() => {
             window.location.href = 'cadastrar.html';
           }, 1000);
@@ -122,3 +177,4 @@
 
 </body>
 </html>
+
