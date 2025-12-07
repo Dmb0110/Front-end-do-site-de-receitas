@@ -103,37 +103,45 @@
   <div class="modo-preparo" id="modo-preparo"></div>
 
   <script>
-    const API_BASE = "https://beck-end-do-site-de-receitas.vercel.app";
+  const API_BASE = "https://beck-end-do-site-de-receitas.vercel.app";
 
-    function getIdFromURL() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get("id");
+  function getIdFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id");
+  }
+
+  async function buscarReceitaPorId(receita_id) {
+    const res = await fetch(`${API_BASE}/receita/especifico/${receita_id}`);
+    if (!res.ok) throw new Error("Erro ao buscar receita");
+    return await res.json();
+  }
+
+  async function carregarDetalhes() {
+    const id = getIdFromURL();
+    if (!id) {
+      document.getElementById("titulo-receita").textContent = "Receita não encontrada";
+      return;
     }
 
-    async function buscarReceitaPorId(receita_id) {
-      const res = await fetch(`${API_BASE}/receita/especifico/${receita_id}`);
-      if (!res.ok) throw new Error("Erro ao buscar receita");
-      return await res.json();
-    }
-
-    async function carregarDetalhes() {
-      const id = getIdFromURL();
+    try {
       const receita = await buscarReceitaPorId(id);
 
       document.getElementById("titulo-receita").textContent = receita.nome_da_receita;
 
+      // Ingredientes (aceita vírgula ou quebra de linha)
       const ingredientes = receita.ingredientes
-        .split(",")
+        .split(/\r?\n|,/)
         .map(i => i.trim())
         .filter(i => i !== "");
       const lista = document.getElementById("lista-ingredientes");
+      lista.innerHTML = "";
       ingredientes.forEach(item => {
         const li = document.createElement("li");
         li.textContent = item;
         lista.appendChild(li);
       });
 
-      // ✅ Aqui está a mudança: quebra de linha após cada ponto final
+      // Modo de preparo formatado
       const modoFormatado = receita.modo_de_preparo
         .split(".")
         .map(frase => frase.trim())
@@ -142,9 +150,14 @@
         .join("<br>");
 
       document.getElementById("modo-preparo").innerHTML = modoFormatado;
+    } catch (err) {
+      document.getElementById("titulo-receita").textContent = "Erro ao carregar receita";
+      console.error(err);
     }
+  }
 
-    carregarDetalhes();
+  carregarDetalhes();
+
   </script>
 
 </body>
