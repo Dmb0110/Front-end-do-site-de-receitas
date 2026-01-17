@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Receitas</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #fffaf4, #ffe0cc);
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .receitas-container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    h2 {
+      font-size: 32px;
+      margin-bottom: 30px;
+      text-align: center;
+      color: #ff7043;
+      font-weight: bold;
+    }
+
+    .receita-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      padding: 20px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .receita-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    .titulo-receita {
+      font-weight: bold;
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #ff7043;
+      text-align: center;
+    }
+
+    .titulo-receita a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .titulo-receita a:hover {
+      color: #e85c2a;
+    }
+
+    .receita-foto {
+      max-width: 100%;
+      border-radius: 10px;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="receitas-container">
+    <h2>📚 Lista de Receitas</h2>
+
+    <!-- Receita 1 -->
+    <div class="receita-card">
+      <div class="titulo-receita">
+        <a href="receita.html?id=50">Bolo de Milho</a>
+      </div>
+      <img class="receita-foto" src="imagens2/bolo-de-flocao-de-milho.jpg" alt="Bolo de Milho">
+    </div>
+
+    <!-- Receita 2 -->
+    <div class="receita-card">
+      <div class="titulo-receita">
+        <a href="receita.html?id=10">Bife a Cavalo</a>
+      </div>
+      <img class="receita-foto" src="imagens2/bife_cavalo.jpg" alt="Bife a Cavalo">
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,6 +1,76 @@
 '''
 
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Receitas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fffaf4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .receitas-container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .titulo-receita {
+      font-weight: bold;
+      font-size: 20px;
+      margin: 20px 0 10px;
+      color: #ff7043;
+    }
+
+    .titulo-receita a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .titulo-receita a:hover {
+      text-decoration: underline;
+    }
+
+    .receita-foto {
+      max-width: 60%;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="receitas-container">
+    <h2>📚 Lista de Receitas</h2>
+    <!-- Receita 1 -->
+    <div class="titulo-receita">
+      <a href="receita.html?id=50">Bolo de Milho</a>
+    </div>
+    <img class="receita-foto" src="imagens2/bolo-de-flocao-de-milho.jpg" alt="Bolo de Milho">
+
+    <!-- Receita 2 -->
+    <div class="titulo-receita">
+      <a href="receita.html?id=10">Bife a Cavalo</a>
+    </div>
+    <img class="receita-foto" src="imagens2/bife_cavalo.jpg" alt="Bife a Cavalo">
+  </div>
+
+</body>
+</html>
 
 
 
