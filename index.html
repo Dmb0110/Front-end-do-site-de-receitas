@@ -94,7 +94,7 @@
     // Função para mostrar detalhes da receita clicada
     async function mostrarDetalhes(id) {
       try {
-        const res = await fetch(`${API_BASE}/receita/${id}`);
+        const res = await fetch(`${API_BASE}/receita/especifico/${id}`);
         if (!res.ok) throw new Error("Erro ao buscar receita");
         const receita = await res.json();
 
