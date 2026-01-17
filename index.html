@@ -27,11 +27,15 @@
       font-weight: bold;
       font-size: 20px;
       margin: 20px 0 10px;
-      cursor: pointer;
       color: #ff7043;
     }
 
-    .titulo-receita:hover {
+    .titulo-receita a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .titulo-receita a:hover {
       text-decoration: underline;
     }
 
@@ -49,51 +53,18 @@
 
   <div class="receitas-container">
     <h2>📚 Lista de Receitas</h2>
-
     <!-- Receita 1 -->
-    <div class="titulo-receita" onclick="mostrarDetalhes(1)">
-      Bolo de Milho
+    <div class="titulo-receita">
+      <a href="receita.html?id=1">Bolo de Milho</a>
     </div>
     <img class="receita-foto" src="imagens2/bolo-de-flocao-de-milho.jpg" alt="Bolo de Milho">
 
     <!-- Receita 2 -->
-    <div class="titulo-receita" onclick="mostrarDetalhes(2)">
-      Bife a Cavalo
+    <div class="titulo-receita">
+      <a href="receita.html?id=2">Bife a Cavalo</a>
     </div>
     <img class="receita-foto" src="imagens2/bife_cavalo.jpg" alt="Bife a Cavalo">
-
-    <!-- Receita 3 -->
-    <div class="titulo-receita" onclick="mostrarDetalhes(3)">
-      Lasanha
-    </div>
-    <img class="receita-foto" src="imagens2/lasanha.jpg" alt="Lasanha">
-
-    <!-- Área para detalhes -->
-    <div id="detalhes-receita"></div>
   </div>
-
-  <script>
-    const API_BASE = "https://beck-end-do-site-de-receitas-vslw.vercel.app";
-
-    async function mostrarDetalhes(id) {
-      try {
-        const res = await fetch(`${API_BASE}/receita/especifico/${id}`);
-        if (!res.ok) throw new Error("Erro ao buscar receita");
-        const receita = await res.json();
-
-        document.getElementById("detalhes-receita").innerHTML = `
-          <h2>${receita.nome_da_receita}</h2>
-          <h3>Ingredientes</h3>
-          <ul>${receita.ingredientes.split("\n").map(i => `<li>${i}</li>`).join("")}</ul>
-          <h3>Modo de Preparo</h3>
-          <p>${receita.modo_de_preparo}</p>
-        `;
-      } catch (err) {
-        console.error(err);
-        alert("Erro ao carregar detalhes da receita");
-      }
-    }
-  </script>
 
 </body>
 </html>
