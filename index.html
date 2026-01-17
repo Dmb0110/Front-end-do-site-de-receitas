@@ -27,16 +27,11 @@
       font-weight: bold;
       font-size: 20px;
       margin: 20px 0 10px;
+      cursor: pointer;
       color: #ff7043;
     }
 
-    .titulo-receita a {
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
-    }
-
-    .titulo-receita a:hover {
+    .titulo-receita:hover {
       text-decoration: underline;
     }
 
@@ -54,43 +49,51 @@
 
   <div class="receitas-container">
     <h2>📚 Lista de Receitas</h2>
-    <div id="lista-receitas"></div>
+
+    <!-- Receita 1 -->
+    <div class="titulo-receita" onclick="mostrarDetalhes(1)">
+      Bolo de Milho
+    </div>
+    <img class="receita-foto" src="img/bolo-de-flocao-de-milho.jpg" alt="Bolo de Milho">
+
+    <!-- Receita 2 -->
+    <div class="titulo-receita" onclick="mostrarDetalhes(2)">
+      Bife a Cavalo
+    </div>
+    <img class="receita-foto" src="img/bife_cavalo.jpg" alt="Bife a Cavalo">
+
+    <!-- Receita 3 -->
+    <div class="titulo-receita" onclick="mostrarDetalhes(3)">
+      Lasanha
+    </div>
+    <img class="receita-foto" src="img/lasanha.jpg" alt="Lasanha">
+
+    <!-- Área para detalhes -->
+    <div id="detalhes-receita"></div>
   </div>
 
   <script>
     const API_BASE = "https://beck-end-do-site-de-receitas-vslw.vercel.app";
 
-    // Função para buscar todas as receitas
-    async function buscarReceitas() {
-      const res = await fetch(`${API_BASE}/receita/receber`);
-      if (!res.ok) throw new Error("Erro ao buscar receitas");
-      return await res.json();
-    }
+    async function mostrarDetalhes(id) {
+      try {
+        const res = await fetch(`${API_BASE}/receita/${id}`);
+        if (!res.ok) throw new Error("Erro ao buscar receita");
+        const receita = await res.json();
 
-    // Função para carregar receitas na lista
-    async function carregarReceitas() {
-      const container = document.getElementById("lista-receitas");
-      container.innerHTML = "";
-      const receitas = await buscarReceitas();
-
-      receitas.forEach(r => {
-        const div = document.createElement("div");
-        div.innerHTML = `
-          <div class="titulo-receita">
-            <a href="receita.html?id=${r.id}">
-              ${r.nome_da_receita}
-            </a>
-          </div>
-          ${r.imagem_url ? `<img class="receita-foto" src="${r.imagem_url}" alt="${r.nome_da_receita}" />` : ""}
+        document.getElementById("detalhes-receita").innerHTML = `
+          <h2>${receita.nome_da_receita}</h2>
+          <h3>Ingredientes</h3>
+          <ul>${receita.ingredientes.split("\n").map(i => `<li>${i}</li>`).join("")}</ul>
+          <h3>Modo de Preparo</h3>
+          <p>${receita.modo_de_preparo}</p>
         `;
-        container.appendChild(div);
-      });
+      } catch (err) {
+        console.error(err);
+        alert("Erro ao carregar detalhes da receita");
+      }
     }
-
-    // Chamada inicial para carregar lista
-    carregarReceitas();
   </script>
 
 </body>
 </html>
-
