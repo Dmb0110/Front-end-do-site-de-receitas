@@ -27,11 +27,16 @@
       font-weight: bold;
       font-size: 20px;
       margin: 20px 0 10px;
-      cursor: pointer;
       color: #ff7043;
     }
 
-    .titulo-receita:hover {
+    .titulo-receita a {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .titulo-receita a:hover {
       text-decoration: underline;
     }
 
@@ -43,14 +48,6 @@
       margin-left: auto;
       margin-right: auto;
     }
-
-    #detalhes-receita {
-      margin-top: 40px;
-      text-align: left;
-      background: #fff3e0;
-      padding: 20px;
-      border-radius: 8px;
-    }
   </style>
 </head>
 <body>
@@ -58,9 +55,6 @@
   <div class="receitas-container">
     <h2>📚 Lista de Receitas</h2>
     <div id="lista-receitas"></div>
-
-    <!-- Área para detalhes -->
-    <div id="detalhes-receita"></div>
   </div>
 
   <script>
@@ -82,34 +76,15 @@
       receitas.forEach(r => {
         const div = document.createElement("div");
         div.innerHTML = `
-          <div class="titulo-receita" onclick="mostrarDetalhes(${r.id})">
-            ${r.nome_da_receita}
+          <div class="titulo-receita">
+            <a href="receita.html?id=${r.id}">
+              ${r.nome_da_receita}
+            </a>
           </div>
           ${r.imagem_url ? `<img class="receita-foto" src="${r.imagem_url}" alt="${r.nome_da_receita}" />` : ""}
         `;
         container.appendChild(div);
       });
-    }
-
-    // Função para mostrar detalhes da receita clicada
-    async function mostrarDetalhes(id) {
-      try {
-        const res = await fetch(`${API_BASE}/receita/especifico/${id}`);
-        if (!res.ok) throw new Error("Erro ao buscar receita");
-        const receita = await res.json();
-
-        document.getElementById("detalhes-receita").innerHTML = `
-          <h2>${receita.nome_da_receita}</h2>
-          <img src="${receita.imagem_url}" alt="${receita.nome_da_receita}" class="receita-foto" />
-          <h3>Ingredientes</h3>
-          <ul>${receita.ingredientes.split("\n").map(i => `<li>${i}</li>`).join("")}</ul>
-          <h3>Modo de Preparo</h3>
-          <p>${receita.modo_de_preparo}</p>
-        `;
-      } catch (err) {
-        console.error(err);
-        alert("Erro ao carregar detalhes da receita");
-      }
     }
 
     // Chamada inicial para carregar lista
