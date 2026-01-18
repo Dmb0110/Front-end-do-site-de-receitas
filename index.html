@@ -86,7 +86,7 @@
   <script>
     async function carregarReceitas() {
       try {
-        const response = await fetch("https://beck-end-do-site-de-receitas-2.onrender.com/receita/receber");
+        const response = await fetch("https://beck-end-do-site-de-receitas-vslw.vercel.app/receita/receber");
         const receitas = await response.json();
 
         const container = document.getElementById("lista-receitas");
